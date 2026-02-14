@@ -1,0 +1,13 @@
+Django>=5.0,<5.1
+djangorestframework>=3.15
+djangorestframework-simplejwt>=5.3
+PyJWT>=2.8
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+pydantic==2.9.2
+requests==2.32.3
+beautifulsoup4==4.12.3
+python-dotenv==1.0.1
+playwright==1.48.0
+stem==1.8.2
+langdetect==1.0.9

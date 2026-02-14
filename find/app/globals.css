@@ -1,0 +1,576 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Updated to Helius-inspired purple gradient theme */
+  --background: oklch(0.99 0.005 280);
+  --foreground: oklch(0.15 0.02 280);
+  --card: oklch(0.98 0.01 280);
+  --card-foreground: oklch(0.15 0.02 280);
+  --popover: oklch(0.98 0.01 280);
+  --popover-foreground: oklch(0.15 0.02 280);
+  --primary: oklch(0.55 0.15 280);
+  --primary-foreground: oklch(0.98 0.01 280);
+  --secondary: oklch(0.95 0.02 280);
+  --secondary-foreground: oklch(0.25 0.03 280);
+  --muted: oklch(0.95 0.02 280);
+  --muted-foreground: oklch(0.55 0.05 280);
+  --accent: oklch(0.92 0.03 280);
+  --accent-foreground: oklch(0.25 0.03 280);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.98 0.01 280);
+  --border: oklch(0.9 0.02 280);
+  --input: oklch(0.9 0.02 280);
+  --ring: oklch(0.55 0.15 280);
+  --chart-1: oklch(0.65 0.15 280);
+  --chart-2: oklch(0.6 0.12 240);
+  --chart-3: oklch(0.7 0.1 320);
+  --chart-4: oklch(0.75 0.08 200);
+  --chart-5: oklch(0.8 0.06 160);
+  --radius: 0.75rem;
+  --sidebar: oklch(0.97 0.01 280);
+  --sidebar-foreground: oklch(0.15 0.02 280);
+  --sidebar-primary: oklch(0.55 0.15 280);
+  --sidebar-primary-foreground: oklch(0.98 0.01 280);
+  --sidebar-accent: oklch(0.92 0.03 280);
+  --sidebar-accent-foreground: oklch(0.25 0.03 280);
+  --sidebar-border: oklch(0.9 0.02 280);
+  --sidebar-ring: oklch(0.55 0.15 280);
+  --font-inter: "Inter", sans-serif;
+  --font-jetbrains-mono: "JetBrains Mono", monospace;
+
+  /* Added Helius gradient colors */
+  --helius-primary-start: #bb8deb;
+  --helius-primary-stop: #844fba;
+  --helius-faint-start: #fcfaff;
+  --helius-faint-stop: #f4ecff;
+  --helius-accent: #6366f1;
+  --helius-secondary: #8b5cf6;
+}
+
+.dark {
+  /* Updated dark theme with purple accents */
+  --background: oklch(0.08 0.01 280);
+  --foreground: oklch(0.95 0.01 280);
+  --card: oklch(0.1 0.01 280);
+  --card-foreground: oklch(0.95 0.01 280);
+  --popover: oklch(0.1 0.01 280);
+  --popover-foreground: oklch(0.95 0.01 280);
+  --primary: oklch(0.7 0.15 280);
+  --primary-foreground: oklch(0.08 0.01 280);
+  --secondary: oklch(0.18 0.02 280);
+  --secondary-foreground: oklch(0.95 0.01 280);
+  --muted: oklch(0.18 0.02 280);
+  --muted-foreground: oklch(0.65 0.05 280);
+  --accent: oklch(0.22 0.03 280);
+  --accent-foreground: oklch(0.95 0.01 280);
+  --destructive: oklch(0.6 0.2 25);
+  --destructive-foreground: oklch(0.95 0.01 280);
+  --border: oklch(0.22 0.02 280);
+  --input: oklch(0.22 0.02 280);
+  --ring: oklch(0.7 0.15 280);
+  --chart-1: oklch(0.65 0.15 280);
+  --chart-2: oklch(0.6 0.12 240);
+  --chart-3: oklch(0.7 0.1 320);
+  --chart-4: oklch(0.75 0.08 200);
+  --chart-5: oklch(0.8 0.06 160);
+  --sidebar: oklch(0.12 0.01 280);
+  --sidebar-foreground: oklch(0.95 0.01 280);
+  --sidebar-primary: oklch(0.7 0.15 280);
+  --sidebar-primary-foreground: oklch(0.08 0.01 280);
+  --sidebar-accent: oklch(0.22 0.03 280);
+  --sidebar-accent-foreground: oklch(0.95 0.01 280);
+  --sidebar-border: oklch(0.22 0.02 280);
+  --sidebar-ring: oklch(0.7 0.15 280);
+}
+
+@theme inline {
+  /* Fixed font variables to match layout.tsx Google Fonts */
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Enhanced professional animations with Helius-inspired effects */
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .animate-slide-down {
+    animation: slideDown 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .animate-bounce-in {
+    animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 4s ease infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s linear infinite;
+  }
+
+  /* Added Helius-inspired gradient utilities */
+  .bg-helius-gradient {
+    background: linear-gradient(135deg, var(--helius-primary-start), var(--helius-primary-stop));
+  }
+
+  .bg-helius-faint {
+    background: linear-gradient(135deg, var(--helius-faint-start), var(--helius-faint-stop));
+  }
+
+  .text-helius-gradient {
+    background: linear-gradient(135deg, var(--helius-primary-start), var(--helius-primary-stop));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Enhanced responsive grid layouts for better balance */
+  .grid-balanced {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    justify-items: center;
+    align-items: start;
+  }
+
+  .flex-balanced {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 20px -10px var(--helius-primary-start);
+  }
+  to {
+    box-shadow: 0 0 30px -5px var(--helius-primary-stop);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Enhanced loading components with better animations */
+.loading-spinner {
+  @apply w-10 h-10 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin;
+  animation-duration: 0.8s;
+}
+
+.loading-dots::after {
+  content: "";
+  animation: dots 2s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0%,
+  20% {
+    content: "";
+  }
+  40% {
+    content: ".";
+  }
+  60% {
+    content: "..";
+  }
+  80%,
+  100% {
+    content: "...";
+  }
+}
+
+/* Enhanced Wallet Adapter UI with Helius theme and proper contrast */
+.wallet-adapter-button {
+  background: linear-gradient(135deg, var(--helius-primary-start), var(--helius-primary-stop)) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 0.75rem !important;
+  font-weight: 600 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 4px 14px 0 rgba(187, 141, 235, 0.3) !important;
+}
+
+.wallet-adapter-button *,
+.wallet-adapter-button span,
+.wallet-adapter-button-trigger,
+.wallet-adapter-button-start-icon,
+.wallet-adapter-button-end-icon {
+  color: white !important;
+}
+
+.wallet-adapter-button:not([disabled]):hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px 0 rgba(187, 141, 235, 0.4) !important;
+  background: linear-gradient(135deg, #c49aef, #9159c4) !important;
+  color: white !important;
+}
+
+.wallet-adapter-button:not([disabled]):active {
+  transform: translateY(0) !important;
+  box-shadow: 0 4px 14px 0 rgba(187, 141, 235, 0.3) !important;
+  color: white !important;
+}
+
+.wallet-adapter-button[disabled] {
+  background: linear-gradient(135deg, #e5e7eb, #d1d5db) !important;
+  color: #6b7280 !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Fixed dropdown styling to ensure proper contrast */
+.wallet-adapter-dropdown {
+  background: white !important;
+  border: 1px solid rgba(187, 141, 235, 0.2) !important;
+  border-radius: 0.75rem !important;
+  backdrop-filter: blur(12px) !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+  animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.wallet-adapter-dropdown-list {
+  background: white !important;
+}
+
+.wallet-adapter-dropdown-list-item {
+  background: white !important;
+  color: #374151 !important;
+  border-radius: 0.5rem !important;
+  margin: 0.25rem !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.wallet-adapter-dropdown-list-item:hover {
+  background: linear-gradient(135deg, var(--helius-faint-start), var(--helius-faint-stop)) !important;
+  color: var(--helius-primary-stop) !important;
+  transform: translateX(6px) !important;
+}
+
+.dark .wallet-adapter-dropdown {
+  background: oklch(0.1 0.01 280) !important;
+  border-color: oklch(0.22 0.02 280) !important;
+}
+
+.dark .wallet-adapter-dropdown-list {
+  background: oklch(0.1 0.01 280) !important;
+}
+
+.dark .wallet-adapter-dropdown-list-item {
+  background: oklch(0.1 0.01 280) !important;
+  color: oklch(0.95 0.01 280) !important;
+}
+
+.dark .wallet-adapter-dropdown-list-item:hover {
+  background: oklch(0.18 0.02 280) !important;
+  color: oklch(0.7 0.15 280) !important;
+}
+
+/* Ensured modal components have proper contrast */
+.wallet-adapter-modal {
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+.wallet-adapter-modal-container {
+  background: white !important;
+  border: 1px solid rgba(187, 141, 235, 0.2) !important;
+  border-radius: 1rem !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+  animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.dark .wallet-adapter-modal-container {
+  background: oklch(0.1 0.01 280) !important;
+  border-color: oklch(0.22 0.02 280) !important;
+}
+
+.wallet-adapter-modal-title {
+  color: #111827 !important;
+  font-weight: 700 !important;
+  background: linear-gradient(135deg, var(--helius-primary-start), var(--helius-primary-stop)) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.dark .wallet-adapter-modal-title {
+  color: oklch(0.95 0.01 280) !important;
+}
+
+.wallet-adapter-modal-list {
+  background: white !important;
+}
+
+.dark .wallet-adapter-modal-list {
+  background: oklch(0.1 0.01 280) !important;
+}
+
+.wallet-adapter-modal-list-item {
+  background: white !important;
+  color: #374151 !important;
+  border: 2px solid #f3f4f6 !important;
+  border-radius: 0.75rem !important;
+  margin: 0.5rem 0 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.dark .wallet-adapter-modal-list-item {
+  background: oklch(0.1 0.01 280) !important;
+  color: oklch(0.95 0.01 280) !important;
+  border-color: oklch(0.22 0.02 280) !important;
+}
+
+.wallet-adapter-modal-list-item:hover {
+  background: linear-gradient(135deg, var(--helius-faint-start), var(--helius-faint-stop)) !important;
+  border-color: var(--helius-primary-start) !important;
+  color: #374151 !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 10px 25px -5px rgba(187, 141, 235, 0.3) !important;
+}
+
+.dark .wallet-adapter-modal-list-item:hover {
+  background: oklch(0.18 0.02 280) !important;
+  border-color: oklch(0.7 0.15 280) !important;
+  color: oklch(0.95 0.01 280) !important;
+}
+
+.wallet-adapter-modal-wrapper {
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+/* Override any conflicting styles that might cause white text on white background */
+.wallet-adapter-dropdown .wallet-adapter-button,
+.wallet-adapter-modal .wallet-adapter-button {
+  background: linear-gradient(135deg, var(--helius-primary-start), var(--helius-primary-stop)) !important;
+  color: white !important;
+}
+
+/* Ensure all wallet adapter text elements have proper contrast */
+.wallet-adapter-dropdown *:not(.wallet-adapter-button),
+.wallet-adapter-modal *:not(.wallet-adapter-button) {
+  color: inherit !important;
+}
+
+.wallet-adapter-dropdown-list-item *,
+.wallet-adapter-modal-list-item * {
+  color: inherit !important;
+}
+
+/* Force override for any remaining white-on-white issues */
+button[class*="wallet-adapter"] {
+  background: linear-gradient(135deg, var(--helius-primary-start), var(--helius-primary-stop)) !important;
+  color: white !important;
+}
+
+button[class*="wallet-adapter"]:hover {
+  background: linear-gradient(135deg, #c49aef, #9159c4) !important;
+  color: white !important;
+}
+
+/* Specific fix for Select Wallet button */
+button[class*="wallet-adapter"][aria-expanded] {
+  background: linear-gradient(135deg, var(--helius-primary-start), var(--helius-primary-stop)) !important;
+  color: white !important;
+}
+
+/* Fixed container centering and improved layout balance */
+.container {
+  @apply mx-auto px-4 sm:px-6 lg:px-8;
+  max-width: 1200px;
+}
