@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Key, Copy, Trash2, Eye, EyeOff, Database } from "lucide-react"
+import { Key, Copy, Trash2, Eye, EyeOff, Database, Shield, Loader2 } from "lucide-react"
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { useToast } from "@/hooks/use-toast"
@@ -76,7 +76,40 @@ export function ApiKeysContent() {
     fetchApiKeys()
   }, [user, toast])
 
+  const [verifying, setVerifying] = useState<string | null>(null)
+
+  const verifyApiKey = async (apiKey: string, keyId: string) => {
+    setVerifying(keyId)
+    try {
+      const response = await fetch("/api/search/verify", {
+        method: "GET",
+        headers: {
+          "x-api-key": apiKey,
+        },
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        toast({
+          title: "✅ Key Verified",
+          description: `Backend confirms key is active for wallet ${data.wallet_address.slice(0, 8)}...`,
+        })
+      } else {
+        throw new Error("Verification failed")
+      }
+    } catch (error) {
+      toast({
+        title: "❌ Verification Failed",
+        description: "The backend could not verify this API key.",
+        variant: "destructive",
+      })
+    } finally {
+      setVerifying(null)
+    }
+  }
+
   const createApiKey = async () => {
+
     if (!user || !newKeyName.trim()) {
       toast({
         title: "Missing Information",
@@ -387,7 +420,20 @@ export function ApiKeysContent() {
                         >
                           <Copy className="h-4 w-4" />
                         </Button>
+                        {newlyCreatedKeys.has(apiKey.id) && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="text-xs h-8"
+                            onClick={() => verifyApiKey(newlyCreatedKeys.get(apiKey.id)!, apiKey.id)}
+                            disabled={verifying === apiKey.id}
+                          >
+                            {verifying === apiKey.id ? <Loader2 className="h-3 w-3 animate-spin mr-1" /> : <Shield className="h-3 w-3 mr-1" />}
+                            Test Verification
+                          </Button>
+                        )}
                       </div>
+
 
                       {newlyCreatedKeys.has(apiKey.id) && (
                         <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-3 mb-3">
@@ -455,14 +501,14 @@ export function ApiKeysContent() {
               <div>
                 <h4 className="font-semibold mb-3 text-green-600">✅ Authentication</h4>
                 <code className="block text-sm bg-muted p-3 rounded-lg border font-mono">
-                  Authorization: Bearer YOUR_API_KEY
+                  x-api-key: YOUR_API_KEY
                 </code>
               </div>
 
               <div>
                 <h4 className="font-semibold mb-3 text-blue-600">🌐 Base URL</h4>
                 <code className="block text-sm bg-muted p-3 rounded-lg border font-mono">
-                  https://api.findxo.io/v1/
+                  https://api.findxo.io/v1/dark/
                 </code>
               </div>
             </div>
@@ -470,12 +516,13 @@ export function ApiKeysContent() {
             <div className="mt-6">
               <h4 className="font-semibold mb-3 text-purple-600">🚀 Example Request</h4>
               <code className="block text-sm bg-muted p-4 rounded-lg border whitespace-pre font-mono overflow-x-auto">
-                {`curl -X GET "https://api.findxo.io/v1/search" \\
-  -H "Authorization: Bearer YOUR_API_KEY" \\
+                {`curl -X POST "https://api.findxo.io/v1/dark/search" \\
+  -H "x-api-key: YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
-  -d '{"query": "example search"}'`}
+  -d '{"keyword": "breach", "max_results": 5}'`}
               </code>
             </div>
+
           </CardContent>
         </Card>
       </div>
