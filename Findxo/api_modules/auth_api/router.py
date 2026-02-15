@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password, check_password
 from django.db.models import Q
 from ..common.jwt_utils import create_access_token, decode_token
-from django_api.accounts.models import UserProfile
+from accounts.models import UserProfile
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
