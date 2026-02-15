@@ -57,7 +57,33 @@ export async function POST(request: NextRequest) {
       }
 
       console.log("[v0] User created successfully:", walletAddress.slice(0, 8))
+
+      // Create default free subscription for new user
+      try {
+        const { data: freePlan } = await supabase
+          .from("subscription_plans")
+          .select("id")
+          .eq("name", "free")
+          .single()
+
+        if (freePlan) {
+          await supabase
+            .from("user_subscriptions")
+            .insert([{
+              user_id: newUser.id,
+              plan_id: freePlan.id,
+              status: "active",
+              starts_at: new Date().toISOString()
+            }])
+          console.log("[v0] Default free subscription created for user")
+        }
+      } catch (subError) {
+        console.error("[v0] Failed to create default subscription:", subError)
+        // We don't fail the whole request if subscription creation fails
+      }
+
       return NextResponse.json({ user: newUser })
+
     } catch (clientError) {
       console.error("[v0] Supabase client error:", clientError)
 
