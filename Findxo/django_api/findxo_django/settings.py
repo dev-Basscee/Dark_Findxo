@@ -7,8 +7,15 @@ load_dotenv()  # Load environment variables from .env file
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'dev-secret-key-change-me')
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
+
+if not SECRET_KEY and not DEBUG:
+    raise ValueError("DJANGO_SECRET_KEY environment variable is not set!")
+
+if not SECRET_KEY:
+    SECRET_KEY = 'dev-secret-key-change-me'
+
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
@@ -56,12 +63,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'findxo_django.wsgi.application'
 ASGI_APPLICATION = 'findxo_django.asgi.application'
 
+import dj_database_url
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL', f"sqlite:///{BASE_DIR / 'db.sqlite3'}"),
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -100,7 +111,10 @@ AUTHENTICATION_BACKENDS = [
     'accounts.auth_backends.WalletEmailUsernameBackend',
 ]
 
-# Stripe
-STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
-STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
-STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET')
+# Paystack
+PAYSTACK_PUBLIC_KEY = os.getenv('PAYSTACK_PUBLIC_KEY')
+PAYSTACK_SECRET_KEY = os.getenv('PAYSTACK_SECRET_KEY')
+
+# Solana
+NEXT_PUBLIC_SOLANA_RPC_URL = os.getenv('NEXT_PUBLIC_SOLANA_RPC_URL')
+NEXT_PUBLIC_MERCHANT_WALLET = os.getenv('NEXT_PUBLIC_MERCHANT_WALLET')
