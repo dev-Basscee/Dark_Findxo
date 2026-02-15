@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Key, CreditCard, Activity, TrendingUp, Database, Shield, Calendar, BarChart3, Home, RefreshCw } from "lucide-react"
+import { Key, CreditCard, Activity, TrendingUp, Database, Shield, Calendar, BarChart3, Home, RefreshCw, Search } from "lucide-react"
 import { useEffect, useState, useCallback } from "react"
 import Link from "next/link"
 import { ThemeToggle } from "@/components/theme/theme-toggle"
@@ -20,8 +20,8 @@ interface UserStats {
   planExpiry: string | null
 }
 
-const supabaseUrl = "https://your-supabase-url.supabase.co"
-const supabaseKey = "your-supabase-key"
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ""
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 export function DashboardContent() {
@@ -371,10 +371,20 @@ export function DashboardContent() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <Button
+                    className="w-full justify-start bg-primary text-primary-foreground hover:scale-105 transition-all duration-200"
+                    asChild
+                  >
+                    <Link href="/search">
+                      <Search className="h-4 w-4 mr-2" />
+                      New Intelligence Search
+                    </Link>
+                  </Button>
+                  <Button
                     className="w-full justify-start bg-transparent hover:scale-105 transition-all duration-200"
                     variant="outline"
                     asChild
                   >
+
                     <Link href="/api-keys">
                       <Key className="h-4 w-4 mr-2" />
                       Manage API Keys
